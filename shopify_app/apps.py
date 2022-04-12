@@ -29,12 +29,13 @@ class ShopifyAppConfig(AppConfig):
 
     # print("SHOPIFY_API_SCOPE!!1")
     # print(SHOPIFY_API_SCOPE)`
+    
     SHOPIFY_API_VERSION = 'unstable'
     SHOPIFY_API_KEY='2ca4708c0587a4e79c9ff3ecae247b71'
     SHOPIFY_API_SECRET='b485e0c72bfdb12408a909e58d20bf6e'
     # SHOPIFY_API_SCOPE=['read_products', 'read_orders','unauthenticated_read_product_listings','unauthenticated_read_collection_listings','unauthenticated_write_checkouts','unauthenticated_write_customers']
     SHOPIFY_API_SCOPE=['read_orders','read_products,write_products,unauthenticated_read_content,unauthenticated_read_customer_tags,unauthenticated_read_product_tags,unauthenticated_read_product_listings,unauthenticated_write_checkouts,unauthenticated_read_checkouts,unauthenticated_write_customers,unauthenticated_read_customers','read_products','write_products','unauthenticated_read_content','unauthenticated_read_customer_tags','unauthenticated_read_product_tags','unauthenticated_read_product_listings','unauthenticated_write_checkouts','unauthenticated_read_checkouts','unauthenticated_write_customers','unauthenticated_read_customers']
-
+    APP_PATH='/admin/apps/demoapp-269'
 
 
 
