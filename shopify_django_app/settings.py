@@ -24,15 +24,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET')
 SECRET_KEY = 'vg@h_m1tvawb5)yfey+^+6ut5(_3y#g4m%0e5&eh6q0gb-_0_m'
 
-SHOPIFY_API_KEY='2ca4708c0587a4e79c9ff3ecae247b71'
-SHOPIFY_API_SECRET='b485e0c72bfdb12408a909e58d20bf6e'
-# SHOPIFY_API_VERSION = 'unstable'
+SHOPIFY_API_KEY='4e0b2b2eeeedac0ecfcb1856dcbe58d7'
+SHOPIFY_API_SECRET='4364c39c5a1d5197cef8017eb63714e0'
+SHOPIFY_API_VERSION = 'unstable'
 INTERNAL_IPS = ('127.0.0.1', )
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # X_FRAME_OPTIONS = 'ALLOW-FROM https://naseeb.pythonanywhere.com/'
 # X_FRAME_OPTIONS = 'ALLOW-FROM http://localhost:8000'
-ALLOWED_HOSTS = ['hidden-licence-guy-potato.trycloudflare.com','localhost','naseeb.pythonanywhere.com']
+ALLOWED_HOSTS = ['hidden-licence-guy-potato.trycloudflare.com','localhost','naseeb.pythonanywhere.com','127.0.0.1']
 CSP_FRAME_SRC = ["https://naseeb.pythonanywhere.com"]
 
 SESSION_COOKIE_SAMESITE = 'None'

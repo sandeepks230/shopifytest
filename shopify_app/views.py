@@ -21,8 +21,10 @@ def login(request):
     # just skip to authenticate
     store_url = ''
     shop = request.GET.get('shop')
+    print("LOGIN SESSION",request.session.__dict__)
     if 'return_to' in request.session and  request.session['return_to'] != '/':
         retstr = request.session['return_to']
+        print("RETURN TO ",retstr)
         retstr_list = retstr.split('&')
         print("retstr_list")
         print(retstr_list)
@@ -35,6 +37,7 @@ def login(request):
             print(store_url)
     else:
         if request.GET.get('shop'):
+            print("SHOP",shop)
             return authenticate(request)
         # return render(request, 'home/index.html', {})
         return render(request, 'shopify_app/login.html', {})
@@ -46,9 +49,12 @@ def login(request):
         return render(request, 'home/index.html', {})
     scope = apps.get_app_config('shopify_app').SHOPIFY_API_SCOPE
     redirect_uri = request.build_absolute_uri(reverse(finalize))
+    print("LOGIN REDIRECT URI",redirect_uri)
     state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
+    print("LOGIN STATE",state)
     request.session['shopify_oauth_state_param'] = state
     permission_url = _new_session(shop_url).create_permission_url(scope, redirect_uri, state)
+    print("LOGIN PERMISSION",permission_url)
     return redirect(permission_url)
 
 
@@ -65,15 +71,19 @@ def authenticate(request):
         return render(request, 'home/index.html', {})
     scope = apps.get_app_config('shopify_app').SHOPIFY_API_SCOPE
     redirect_uri = request.build_absolute_uri(reverse(finalize))
+    print("AUTHENTICATE REDIRECT URI",redirect_uri)
     state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
     request.session['shopify_oauth_state_param'] = state
     permission_url = _new_session(shop_url).create_permission_url(scope, redirect_uri, state)
+    print("Authenticate", permission_url)
     return redirect(permission_url)
 
 def finalize(request):
     api_secret = apps.get_app_config('shopify_app').SHOPIFY_API_SECRET
+    # api_secret = '4364c39c5a1d5197cef8017eb63714e0'
     params = request.GET.dict()
-
+    print("FINALIZE PARAMS",params)
+    print("FINALIZE SESSION ATTRS",request.session.__dict__)
     if request.session['shopify_oauth_state_param'] != params['state']:
         messages.error(request, 'Anti-forgery state token does not match the initial request.')
         return render(request, 'home/index.html', {})
@@ -85,6 +95,7 @@ def finalize(request):
         '%s=%s' % (key, value)
         for key, value in sorted(params.items())
     ])
+    print("APISECRET",api_secret)
     h = hmac.new(api_secret.encode('utf-8'), line.encode('utf-8'), hashlib.sha256)
     if hmac.compare_digest(h.hexdigest(), myhmac) == False:
         messages.error(request, "Could not verify a secure login")

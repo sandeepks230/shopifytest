@@ -8,6 +8,11 @@ def shop_login_required(fn):
         if not hasattr(request, 'session') or 'shopify' not in request.session:
             request.session['return_to'] = request.get_full_path()
             return redirect(reverse(views.login))
+        if hasattr(request,'session'):
+            print("HAS ATTR", hasattr(request,'session'))
+            print(request.session['shopify'])
+        elif 'shopify' in request.session:
+            print("SESSION SHOPIFY", request.session['shopify'])
         return fn(request, *args, **kwargs)
     wrapper.__name__ = fn.__name__
     return wrapper
